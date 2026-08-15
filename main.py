@@ -5,6 +5,7 @@ app = FastAPI()
 
 
 @app.get("/")
+@app.head("/")
 async def home():
     return {
         "success": True,
@@ -14,16 +15,18 @@ async def home():
 
 @app.get("/leetcode")
 async def get_leetcode_profile():
+
     url = "https://leetcode.com/u/nidhi_123-4/"
 
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(
-            headless=True
-        )
+    try:
+        async with async_playwright() as p:
 
-        page = await browser.new_page()
+            browser = await p.chromium.launch(
+                headless=True
+            )
 
-        try:
+            page = await browser.new_page()
+
             await page.goto(
                 url,
                 wait_until="domcontentloaded",
@@ -34,16 +37,18 @@ async def get_leetcode_profile():
 
             print("Title:", title)
 
+            await browser.close()
+
             return {
                 "success": True,
                 "title": title
             }
 
-        except Exception as e:
-            return {
-                "success": False,
-                "error": str(e)
-            }
+    except Exception as e:
 
-        finally:
-            await browser.close()
+        print("ERROR:", str(e))
+
+        return {
+            "success": False,
+            "error": str(e)
+        }
