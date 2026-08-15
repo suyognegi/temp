@@ -1,54 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
 from playwright.async_api import async_playwright
 
 app = FastAPI()
 
-
-@app.get("/")
-@app.head("/")
-async def home():
-    return {
-        "success": True,
-        "message": "LeetCode API is running"
-    }
-
-
-@app.get("/leetcode")
-async def get_leetcode_profile():
-
-    url = "https://leetcode.com/u/nidhi_123-4/"
-
+@app.get("/title")
+async def get_title(url: str = Query(..., description="URL to fetch title from")):
     try:
         async with async_playwright() as p:
-
-            browser = await p.chromium.launch(
-                headless=True
-            )
-
+            browser = await p.chromium.launch()
             page = await browser.new_page()
-
-            await page.goto(
-                url,
-                wait_until="domcontentloaded",
-                timeout=30000
-            )
-
+            await page.goto(url, wait_until="networkidle", timeout=30000)
             title = await page.title()
-
-            print("Title:", title)
-
             await browser.close()
-
-            return {
-                "success": True,
-                "title": title
-            }
-
+        return {"url": url, "title": title}
     except Exception as e:
-
-        print("ERROR:", str(e))
-
-        return {
-            "success": False,
-            "error": str(e)
-        }
+        raise HTTPException(status_code=500, detail=str(e))
