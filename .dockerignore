@@ -1,11 +1,100 @@
-.git
-.gitignore
-.venv
-venv
-__pycache__
+# Python
+__pycache__/
+*.py[cod]
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+venv/
+.venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment files
 .env
-.idea
-.vscode
-playwright-report
-test-results
+.env.*
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+playwright-report/
+test-results/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose*.yml
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.pid
+
+# Playwright browsers (will be installed in container)
+ms-playwright/
+.playwright/
+
+# Railway specific
+railway.json
+.railway/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Screenshots and outputs
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+screenshots/
+
+# Misc
+*.db
+*.sqlite3
+*.sqlite
+coverage.xml
+*.cover
+.hypothesis/
+.python-version
