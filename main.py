@@ -233,7 +233,10 @@ async def safe_goto(page, url, timeout=30000, max_retries=3):
 
     print(f"[{_ts()}] All {max_retries} attempts failed for {url}")
     return False
-
+@app.get("/")
+@app.get("/status")
+def index():
+    return {"success":1}
 @app.get("/screenshot")
 async def screenshot(url: str):
     async with async_playwright() as p:
