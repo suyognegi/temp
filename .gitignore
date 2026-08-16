@@ -9,3 +9,7 @@ venv/
 .pytest_cache/
 playwright-report/
 test-results/
+*.log
+*.pid
+*.sqlite3
+.DS_Store
