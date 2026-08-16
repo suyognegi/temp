@@ -1,15 +1,65 @@
+# Python
 __pycache__/
+*.py[cod]
 *.pyc
-.venv/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
 venv/
+.venv/
+ENV/
+env/
+
+# Environment files
 .env
 .env.*
+*.env
+
+# IDE
 .idea/
 .vscode/
+*.swp
+*~
+.DS_Store
+
+# Testing
 .pytest_cache/
+.coverage
 playwright-report/
 test-results/
+
+# Logs
 *.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
 *.pid
-*.sqlite3
-.DS_Store
+
+# Screenshots
+*.png
+*.jpg
+*.jpeg
+screenshots/
+
+# Playwright
+ms-playwright/
+.playwright/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Railway
+railway.json
+.railway/
+
+# OS files
+Thumbs.db
+Desktop.ini
