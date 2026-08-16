@@ -731,3 +731,10 @@ async def screenshot(url: str):
 
         await browser.close()
         return Response(content=screenshot, media_type="image/png")
+
+
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
