@@ -207,9 +207,7 @@ async def create_all_labels_list_to_append(starting_month_number, month_name):
 
 
 pfp_url = 'https://leetcode.com/u/d1zpNU7oGC'
-from playwright.async_api import async_playwright
-import asyncio
-from datetime import datetime
+
 
 import asyncio
 from datetime import datetime
@@ -833,10 +831,5 @@ async def screenshot(pfp_url, change_):
         media_type="application/x-ndjson"
     )
 
-@app.gt("/")
-@app.head("/")
-@app.health("/")
-def check__():
-    return{"status":1}
 
 # uvicorn main:app --reload
