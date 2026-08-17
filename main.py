@@ -240,7 +240,7 @@ app = FastAPI()
 
 
 @app.get("/screenshot")
-async def screenshot(pfp_url, change_):
+async def screenshot(pfp_url:str, change_:int):
     async def main_():
         async with async_playwright() as p:
             yield json.dumps({
