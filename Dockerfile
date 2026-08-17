@@ -4,19 +4,28 @@ WORKDIR /app
 
 # Install system dependencies for Playwright
 RUN apt-get update && apt-get install -y \
-    curl \
+    wget \
+    gnupg \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Install Playwright dependencies
+RUN pip install playwright==1.40.0 \
+    && playwright install-deps \
+    && playwright install chromium
+
+# Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright and its dependencies
-RUN playwright install chromium
-RUN playwright install-deps chromium
+# Copy application code
+COPY main.py .
 
-# Copy the rest of the application
-COPY . .
+# Create non-root user for security
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
 
-# Run the application
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Expose port
+EXPOSE 8000
+
+# Start the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
