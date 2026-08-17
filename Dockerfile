@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Install Python packages
+# Install Python packages with specific playwright version
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright and browser with explicit fallback
-RUN playwright install-deps && \
-    playwright install chromium
+# Install Playwright dependencies and browsers
+RUN python -m playwright install-deps && \
+    python -m playwright install chromium
 
 # Copy application code
 COPY main.py .
