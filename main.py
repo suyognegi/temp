@@ -833,5 +833,10 @@ async def screenshot(pfp_url, change_):
         media_type="application/x-ndjson"
     )
 
+@app.gt("/")
+@app.head("/")
+@app.health("/")
+def check__():
+    return{"status":1}
 
 # uvicorn main:app --reload
