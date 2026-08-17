@@ -831,5 +831,7 @@ async def screenshot(pfp_url:str, change_:int):
         media_type="application/x-ndjson"
     )
 
-
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
 # uvicorn main:app --reload
