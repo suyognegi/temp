@@ -1,21 +1,19 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.11-slim-bullseye
 
 WORKDIR /app
 
-# Install system dependencies for Playwright
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Copy requirements and install Python packages
 COPY requirements.txt .
-
-# Install Python packages with specific playwright version
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright dependencies and browsers
-RUN python -m playwright install-deps && \
-    python -m playwright install chromium
+# Install Playwright dependencies and browser
+RUN playwright install-deps && \
+    playwright install chromium
 
 # Copy application code
 COPY main.py .
@@ -26,5 +24,4 @@ USER appuser
 
 EXPOSE 8000
 
-# Use workers=1 to avoid memory issues with Playwright
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
